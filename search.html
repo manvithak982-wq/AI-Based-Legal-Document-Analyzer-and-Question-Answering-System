@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>
+Search Documents
+</title>
+
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+Search Legal Documents
+</h1>
+
+
+
+<form method="GET"
+action="/search">
+
+
+<input 
+type="text"
+name="q"
+placeholder="Enter document name or keyword"
+value="{{ query }}"
+required>
+
+
+<button type="submit">
+Search
+</button>
+
+
+</form>
+
+
+
+<br>
+
+
+<a href="{{ url_for('dashboard') }}">
+Dashboard
+</a>
+
+
+<hr>
+
+
+
+{% if results %}
+
+
+<h2>
+Search Results
+</h2>
+
+
+
+<table border="1" width="100%">
+
+
+<tr>
+
+<th>
+ID
+</th>
+
+
+<th>
+Filename
+</th>
+
+
+<th>
+Uploaded Date
+</th>
+
+
+<th>
+Action
+</th>
+
+
+</tr>
+
+
+
+
+{% for doc in results %}
+
+
+<tr>
+
+
+<td>
+{{ doc.id }}
+</td>
+
+
+
+<td>
+{{ doc.filename }}
+</td>
+
+
+
+<td>
+{{ doc.uploaded_at }}
+</td>
+
+
+
+<td>
+
+
+<a href="/generate-report/{{ doc.id }}">
+Generate Report
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+</table>
+
+
+
+{% else %}
+
+
+<p>
+No documents found.
+</p>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+</body>
+
+
+</html>

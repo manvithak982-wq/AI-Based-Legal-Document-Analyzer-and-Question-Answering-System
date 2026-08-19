@@ -1,0 +1,392 @@
+/* ================================
+    AI LEGAL DOCUMENT ANALYZER
+    Professional Dark Legal Theme
+================================ */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter","Segoe UI",Arial,sans-serif;
+}
+
+body{
+    background:#071426;
+    color:#f1f5f9;
+    min-height:100vh;
+    letter-spacing:.2px;
+    line-height:1.6;
+}
+
+/* ================================
+        Navigation
+================================ */
+
+.navbar{
+    height:70px;
+    background:#0b1f3a;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 50px;
+    box-shadow:0 4px 15px rgba(0,0,0,.4);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+    color:#facc15;
+}
+
+.navbar nav a{
+    color:#f1f5f9;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:16px;
+    transition:.3s;
+}
+
+.navbar nav a:hover{
+    color:#facc15;
+}
+
+/* ================================
+        Typography
+================================ */
+
+h1{
+    font-size:42px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+h2{
+    font-size:30px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+h3{
+    font-size:22px;
+    font-weight:600;
+    color:#f8fafc;
+}
+
+p{
+    font-size:16px;
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+/* ================================
+        Hero
+================================ */
+
+.hero{
+    min-height:600px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:50px;
+}
+
+.hero-content{
+    width:50%;
+}
+
+.hero-content h1{
+    font-size:48px;
+    color:#facc15;
+    margin-bottom:20px;
+    line-height:1.2;
+}
+
+.hero-content p{
+    font-size:18px;
+    max-width:650px;
+    color:#e2e8f0;
+}
+
+.hero-card{
+    width:35%;
+}
+
+/* ================================
+        Cards
+================================ */
+.card-body{
+    color:#ffffff;
+}
+
+.card-title{
+    color:#00d4ff;
+}
+.card,
+.feature-box,
+.feature-card,
+.process-card,
+.about-card,
+.action-card,
+.stat-card,
+.panel,
+.page-card{
+    background:#102a4c;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.35);
+    line-height:1.7;
+}
+
+.card h3,
+.feature-box h3,
+.feature-card h4,
+.process-card h3,
+.about-card h2{
+    color:#facc15;
+    font-weight:700;
+}
+
+/* ================================
+        Buttons
+================================ */
+
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    border-radius:8px;
+    text-decoration:none;
+    margin:10px;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.secondary{
+    background:#f59e0b;
+    color:#071426;
+}
+
+.btn:hover{
+    opacity:.85;
+}
+
+.small-btn{
+    background:#2563eb;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+}
+
+.danger-btn{
+    background:#dc2626;
+    color:white;
+}
+
+/* ================================
+        Features
+================================ */
+
+.features{
+    padding:50px;
+}
+
+.features h2{
+    text-align:center;
+    color:#facc15;
+    margin-bottom:30px;
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.feature-box{
+    text-align:center;
+}
+
+.feature-box p,
+.feature-card p{
+    color:#cbd5e1;
+    font-size:15px;
+}
+
+/* ================================
+        Dashboard
+================================ */
+
+.dashboard-container,
+.upload-container,
+.chat-container,
+.analysis-container,
+.viewer-container,
+.reports-container,
+.about-container{
+    padding:40px;
+}
+
+.dashboard-container h1,
+.upload-container h1,
+.chat-container h1,
+.analysis-container h1,
+.viewer-container h1,
+.reports-container h1,
+.about-container h1{
+    color:#facc15;
+    margin-bottom:30px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.stat-card{
+    text-align:center;
+}
+
+.stat-card h2{
+    color:#4ade80;
+    font-size:40px;
+}
+
+/* Make file names visible (white text) inside dashboard tables or lists */
+.dashboard-container table td,
+.reports-container table td,
+td.filename,
+.file-name {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* ================================
+        Upload
+================================ */
+
+.upload-box{
+    background:#102a4c;
+    border:2px dashed #facc15;
+    padding:50px;
+    text-align:center;
+    border-radius:20px;
+}
+
+/* ================================
+        Tables
+================================ */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+}
+
+th{
+    background:#1e40af;
+    padding:15px;
+    color:#ffffff;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #334155;
+    color:#f1f5f9;
+}
+
+/* ================================
+        Chat
+================================ */
+
+.chat-box{
+    background:#020617;
+    height:400px;
+    overflow-y:auto;
+    padding:20px;
+    border-radius:15px;
+}
+
+.bot-message,
+.user-message{
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+    font-size:16px;
+    color:#f8fafc;
+}
+
+.bot-message{
+    background:#1e3a8a;
+}
+
+.user-message{
+    background:#166534;
+}
+
+/* ================================
+        Risk
+================================ */
+
+.risk-card{
+    padding:20px;
+    border-radius:12px;
+    background:#14532d;
+    color:#f0fdf4;
+}
+
+.high-risk{
+    background:#7f1d1d;
+    color:#fef2f2;
+}
+
+.medium-risk{
+    background:#78350f;
+    color:#fffbeb;
+}
+
+/* ================================
+        Footer
+================================ */
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#0b1f3a;
+    margin-top:40px;
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+/* ================================
+        Responsive
+================================ */
+
+@media(max-width:900px){
+    .hero{
+        flex-direction:column;
+    }
+
+    .hero-content,
+    .hero-card{
+        width:90%;
+    }
+
+    .feature-grid,
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .navbar{
+        height:auto;
+        padding:20px;
+        flex-direction:column;
+        gap:10px;
+    }
+}

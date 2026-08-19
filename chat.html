@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Legal Assistant</title>
+
+
+<link 
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+
+
+<body>
+
+
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+
+<div class="logo">
+
+AI Legal Analyzer
+
+</div>
+
+
+
+<nav>
+
+
+<a href="{{url_for('dashboard')}}">
+Dashboard
+</a>
+
+
+<a href="{{url_for('upload_page')}}">
+Upload
+</a>
+
+
+
+
+</nav>
+
+
+</nav>
+
+
+
+
+
+<div class="chat-container">
+
+
+
+<h1 class="text-warning">
+
+AI Legal Assistant
+
+</h1>
+
+
+
+<p class="text-light">
+
+Ask questions about your uploaded legal documents.
+
+</p>
+
+
+
+
+
+<!-- Document Selection -->
+
+
+<div class="panel">
+
+
+<label class="text-warning">
+
+Select Document
+
+</label>
+
+
+
+<select 
+id="documentSelect"
+class="form-select">
+
+
+<option value="">
+
+Select Document
+
+</option>
+
+
+
+{% for doc in documents %}
+
+
+<option value="{{doc['id']}}">
+
+{{doc['filename']}}
+
+</option>
+
+
+{% endfor %}
+
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Chat Box -->
+
+
+<div id="chatBox" class="chat-box">
+
+
+<div class="bot-message">
+
+
+<b>
+AI Assistant:
+</b>
+
+
+<br><br>
+
+
+Hello! I am your AI Legal Assistant.
+
+
+<br><br>
+
+
+Select a document and ask questions related to it.
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Input -->
+
+
+<div class="chat-input">
+
+
+<input
+
+type="text"
+
+id="question"
+
+placeholder="Example: What is the termination clause?"
+
+>
+
+
+<button
+
+onclick="askQuestion()"
+
+class="btn btn-warning">
+
+
+Ask
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Suggested Questions -->
+
+
+<div class="panel mt-4">
+
+
+<h3 class="text-warning">
+
+Suggested Questions
+
+</h3>
+
+
+
+<button 
+class="btn btn-outline-warning m-1"
+onclick="fillQuestion('What are the payment obligations?')">
+
+Payment Obligations
+
+</button>
+
+
+
+
+<button 
+class="btn btn-outline-warning m-1"
+onclick="fillQuestion('What is the termination clause?')">
+
+Termination Clause
+
+</button>
+
+
+
+
+
+<button 
+class="btn btn-outline-warning m-1"
+onclick="fillQuestion('List all risks in this document.')">
+
+Risk Analysis
+
+</button>
+
+
+
+
+
+<button 
+class="btn btn-outline-warning m-1"
+onclick="fillQuestion('Explain confidentiality clauses.')">
+
+Confidentiality
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+function fillQuestion(text)
+{
+
+document.getElementById("question").value=text;
+
+}
+
+
+
+
+
+
+async function askQuestion()
+{
+
+
+const question =
+document.getElementById("question").value.trim();
+
+
+
+const documentId =
+document.getElementById("documentSelect").value;
+
+
+
+const chatBox =
+document.getElementById("chatBox");
+
+
+
+
+
+if(!documentId)
+{
+
+alert("Please select a document first.");
+
+return;
+
+}
+
+
+
+
+
+if(!question)
+{
+
+alert("Please enter a question.");
+
+return;
+
+}
+
+
+
+
+
+chatBox.innerHTML += `
+
+<div class="user-message">
+
+<b>You:</b><br>
+
+${question}
+
+</div>
+
+`;
+
+
+
+
+
+document.getElementById("question").value="";
+
+
+
+
+
+chatBox.innerHTML += `
+
+<div class="bot-message" id="loading">
+
+AI is thinking...
+
+</div>
+
+`;
+
+
+
+
+
+
+try{
+
+
+const response = await fetch("/ask",{
+
+
+method:"POST",
+
+
+headers:{
+
+
+"Content-Type":"application/json"
+
+},
+
+
+
+body:JSON.stringify({
+
+
+question:question,
+
+
+document_id:Number(documentId)
+
+
+})
+
+
+});
+
+
+
+
+
+const data = await response.json();
+
+
+
+
+
+document.getElementById("loading").remove();
+
+
+
+
+
+if(data.error)
+{
+
+
+chatBox.innerHTML += `
+
+
+<div class="bot-message">
+
+
+<b>Error:</b>
+
+${data.error}
+
+
+</div>
+
+
+`;
+
+return;
+
+
+}
+
+
+
+
+
+
+chatBox.innerHTML += `
+
+
+<div class="bot-message">
+
+
+<b>AI Assistant:</b>
+
+
+<br><br>
+
+
+${data.answer}
+
+
+</div>
+
+
+`;
+
+
+
+
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
+
+
+}
+
+
+catch(error)
+{
+
+
+document.getElementById("loading").remove();
+
+
+
+chatBox.innerHTML += `
+
+
+<div class="bot-message">
+
+
+<b>Error:</b>
+
+Server connection failed.
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+</body>
+
+</html>

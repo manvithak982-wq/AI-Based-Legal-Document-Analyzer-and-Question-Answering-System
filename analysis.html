@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Document Analysis - AI Legal Analyzer</title>
+
+
+<link 
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+rel="stylesheet">
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+<div class="logo">
+AI Legal Analyzer
+</div>
+
+
+<nav>
+
+<a href="{{url_for('dashboard')}}">
+Dashboard
+</a>
+
+<a href="{{url_for('upload_page')}}">
+Upload
+</a>
+
+<a href="{{url_for('chat_page')}}">
+AI Assistant
+</a>
+
+
+</nav>
+
+</nav>
+
+
+
+
+
+<div class="container mt-5">
+
+
+<h1 class="text-warning mb-4">
+Document Analysis
+</h1>
+
+
+
+
+
+<!-- DOCUMENT INFORMATION -->
+
+<div class="panel">
+
+
+<h2 class="text-warning">
+Document Information
+</h2>
+
+
+<p>
+<b>File Name:</b>
+{{ document['filename'] }}
+</p>
+
+
+<p>
+<b>Total Pages:</b>
+{{ document['pages'] }}
+</p>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- SUMMARY -->
+
+<div class="panel">
+
+
+<h2 class="text-warning">
+Document Summary
+</h2>
+
+
+
+<div class="card p-3">
+
+
+<p style="white-space:pre-line;">
+
+{% if summary is mapping %}
+
+{{ summary['summary'] }}
+
+{% else %}
+
+{{ summary }}
+
+{% endif %}
+
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- CLAUSES -->
+
+<!-- CLAUSES -->
+
+<div class="panel">
+
+<h2 class="text-warning">
+Detected Clauses
+</h2>
+
+
+{% if clauses and clauses|length > 0 %}
+
+
+{% for clause in clauses %}
+
+
+<div class="card mb-3">
+
+
+<div class="card-body">
+
+
+<h5 class="text-info">
+
+Clause Type:
+
+{{ clause['type'] }}
+
+</h5>
+
+
+
+<p>
+
+<b>Clause Content:</b>
+
+</p>
+
+
+<p style="white-space: pre-line;">
+
+{{ clause['text'] }}
+
+</p>
+
+
+
+<p>
+
+<b>Page:</b>
+
+{{ clause['page'] }}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+
+
+<div class="alert alert-info">
+
+No clauses detected.
+
+</div>
+
+
+{% endif %}
+
+
+
+</div>
+<!-- RISKS -->
+
+
+<div class="panel">
+
+
+<h2 class="text-warning">
+
+Risk Analysis
+
+</h2>
+
+
+
+
+
+{% if risks %}
+
+
+
+
+{% for risk in risks %}
+
+
+
+
+<div class="card mb-3
+
+{% if risk['severity']=="HIGH" %}
+
+border-danger
+
+{% elif risk['severity']=="MEDIUM" %}
+
+border-warning
+
+{% else %}
+
+border-success
+
+{% endif %}
+
+">
+
+
+
+
+
+<div class="card-body">
+
+
+
+
+
+<h4>
+
+
+{% if risk['severity']=="HIGH" %}
+
+
+<span class="text-danger">
+HIGH RISK
+</span>
+
+
+{% elif risk['severity']=="MEDIUM" %}
+
+
+<span class="text-warning">
+MEDIUM RISK
+</span>
+
+
+
+{% else %}
+
+
+<span class="text-success">
+LOW RISK
+</span>
+
+
+{% endif %}
+
+
+
+</h4>
+
+
+
+
+
+
+<p>
+
+<b>Reason:</b>
+
+{{ risk['reason'] }}
+
+</p>
+
+
+
+
+
+<p>
+
+<b>Page:</b>
+
+{{ risk['page'] }}
+
+</p>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+{% else %}
+
+
+
+<div class="alert alert-success">
+
+No risks detected.
+
+</div>
+
+
+{% endif %}
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- BUTTONS -->
+
+
+<div class="text-center mt-4">
+
+
+<a href="{{url_for('dashboard')}}" 
+class="btn btn-primary">
+
+Back To Dashboard
+
+</a>
+
+
+
+
+<a href="{{url_for('chat_page')}}" 
+class="btn btn-warning">
+
+Ask AI Assistant
+
+</a>
+
+
+
+
+<a href="{{ url_for('generate_report', document_id=document['id']) }}" 
+class="btn btn-success">
+
+Generate Report
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<footer>
+
+© 2026 AI Legal Document Analyzer | Powered by AI & RAG
+
+</footer>
+
+
+
+
+
+</body>
+
+</html>
